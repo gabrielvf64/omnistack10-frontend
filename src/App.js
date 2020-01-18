@@ -77,8 +77,7 @@ function App() {
               <label htmlFor="longitude">Longitude</label>
               <input
                 type="number"
-                n
-                ame="longitude"
+                name="longitude"
                 id="longitude"
                 required
                 value={longitude}
