@@ -3,6 +3,7 @@ import React from "react";
 import "./global.css";
 import "./App.css";
 import "./Sidebar.css";
+import "./Main.css"
 
 function App() {
   return (
@@ -34,7 +35,74 @@ function App() {
           <button type="submit">Salvar</button>
         </form>
       </aside>
-      <main></main>
+      <main>
+        <ul>
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
+                alt="Gabriel Vicente"
+              />
+              <div className="user-info">
+                <strong>Gabriel Vicente</strong>
+                <span>Spring, Reactjs</span>
+              </div>
+            </header>
+            <p>Desenvolvedor</p>
+            <a href="https://github.com/gabrielvf64">
+              Acessar perfil no Github
+            </a>
+          </li>
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
+                alt="Gabriel Vicente"
+              />
+              <div className="user-info">
+                <strong>Gabriel Vicente</strong>
+                <span>Spring, Reactjs</span>
+              </div>
+            </header>
+            <p>Desenvolvedor</p>
+            <a href="https://github.com/gabrielvf64">
+              Acessar perfil no Github
+            </a>
+          </li>
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
+                alt="Gabriel Vicente"
+              />
+              <div className="user-info">
+                <strong>Gabriel Vicente</strong>
+                <span>Spring, Reactjs</span>
+              </div>
+            </header>
+            <p>Desenvolvedor</p>
+            <a href="https://github.com/gabrielvf64">
+              Acessar perfil no Github
+            </a>
+          </li>
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
+                alt="Gabriel Vicente"
+              />
+              <div className="user-info">
+                <strong>Gabriel Vicente</strong>
+                <span>Spring, Reactjs</span>
+              </div>
+            </header>
+            <p>Desenvolvedor</p>
+            <a href="https://github.com/gabrielvf64">
+              Acessar perfil no Github
+            </a>
+          </li>
+        </ul>
+      </main>
     </div>
   );
 }
