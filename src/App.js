@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import api from "./services/api";
 
 import "./global.css";
 import "./App.css";
@@ -6,6 +7,8 @@ import "./Sidebar.css";
 import "./Main.css";
 
 function App() {
+  const [devs, setDevs] = useState([]);
+
   const [github_username, setGithubUsername] = useState("");
   const [techs, setTechs] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -14,23 +17,42 @@ function App() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log(position);
         const { latitude, longitude } = position.coords;
 
         setLatitude(latitude);
         setLongitude(longitude);
       },
-      err => {
-        console.log(err);
-      },
+      err => {},
       {
         timeout: 30000
       }
     );
   }, []);
 
+  useEffect(() => {
+    async function loadDevs() {
+      const response = await api.get("/devs");
+
+      setDevs(response.data);
+    }
+
+    loadDevs();
+  }, []);
+
   async function handleAddDev(e) {
     e.preventDefault();
+
+    const response = await api.post("/devs", {
+      github_username,
+      techs,
+      latitude,
+      longitude
+    });
+
+    setGithubUsername("");
+    setTechs("");
+
+    setDevs([...devs, response.data]);
   }
 
   return (
@@ -90,70 +112,21 @@ function App() {
       </aside>
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
-                alt="Gabriel Vicente"
-              />
-              <div className="user-info">
-                <strong>Gabriel Vicente</strong>
-                <span>Spring, Reactjs</span>
-              </div>
-            </header>
-            <p>Desenvolvedor</p>
-            <a href="https://github.com/gabrielvf64">
-              Acessar perfil no Github
-            </a>
-          </li>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
-                alt="Gabriel Vicente"
-              />
-              <div className="user-info">
-                <strong>Gabriel Vicente</strong>
-                <span>Spring, Reactjs</span>
-              </div>
-            </header>
-            <p>Desenvolvedor</p>
-            <a href="https://github.com/gabrielvf64">
-              Acessar perfil no Github
-            </a>
-          </li>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
-                alt="Gabriel Vicente"
-              />
-              <div className="user-info">
-                <strong>Gabriel Vicente</strong>
-                <span>Spring, Reactjs</span>
-              </div>
-            </header>
-            <p>Desenvolvedor</p>
-            <a href="https://github.com/gabrielvf64">
-              Acessar perfil no Github
-            </a>
-          </li>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars0.githubusercontent.com/u/26778411?s=460&v=4"
-                alt="Gabriel Vicente"
-              />
-              <div className="user-info">
-                <strong>Gabriel Vicente</strong>
-                <span>Spring, Reactjs</span>
-              </div>
-            </header>
-            <p>Desenvolvedor</p>
-            <a href="https://github.com/gabrielvf64">
-              Acessar perfil no Github
-            </a>
-          </li>
+          {devs.map(dev => (
+            <li key={dev._id} className="dev-item">
+              <header>
+                <img src={dev.avatar_url} alt={dev.name} />
+                <div className="user-info">
+                  <strong>{dev.name}</strong>
+                  <span>{dev.techs.join(",")}</span>
+                </div>
+              </header>
+              <p>{dev.bio}</p>
+              <a href={`https://github.com/${dev.github_username}`}>
+                Acessar perfil no Github
+              </a>
+            </li>
+          ))}
         </ul>
       </main>
     </div>
